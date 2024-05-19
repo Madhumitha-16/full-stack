@@ -1,14 +1,18 @@
+
+
+
 const express = require('express');
 const mysql = require('mysql2');
 const multer = require('multer');
-const cors = require('cors');
 require('dotenv').config();
+const cors = require('cors');
 const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
+
 const app = express();
 const router = express.Router();
-app.use('/', router);
 app.use(cors()); // Enable CORS
+
 const connection = mysql.createConnection({
     host: process.env.DB_HOST, 
     user: process.env.DB_USER,      
@@ -24,11 +28,11 @@ connection.connect(function (err) {
     }
 });
 
-router.get('/', function(req, res, next) {
+app.get('/', function(req, res, next) {
     res.send('hi');
 });
 
-router.get('/buys', function(req, res, next) {
+app.get('/buys', function(req, res, next) {
     let sql = `SELECT * FROM buyers`;
     connection.query(sql, function(err, result) {
         if (err) {
@@ -59,9 +63,11 @@ app.get('/image/:id', (req, res) => {
         }
     });
 });
+app.use('/', router);
 
-
-const PORT = process.env.PORT || 3307;
+const PORT =  process.env.PORT || 3307;
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
 });
+console.log(process.env.PORT)
+

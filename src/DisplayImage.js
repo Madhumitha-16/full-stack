@@ -23,10 +23,24 @@ const DisplayImage = () => {
     }
   };
 
+  const handleFetchData = async () => {
+    axios({
+      method: "GET",
+      url: "https://full-stack-virid.vercel.app/buys",
+
+    }).then(res => {
+      console.log(res.data);
+    }).catch((err) => {
+      console.log(err);
+    });
+    
+  };
+
   return (
     <div>
       <input type="text" value={imageId} onChange={handleIdChange} placeholder="Enter image ID" />
       <button onClick={handleFetchImage}>Fetch Image</button>
+      <button onClick={handleFetchData}>Fetch Data</button>
       {imageSrc && <img src={imageSrc} alt="Fetched from database" />}
     </div>
   );

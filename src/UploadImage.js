@@ -15,7 +15,7 @@ const UploadImage = () => {
     formData.append('image', selectedFile);
 
     try {
-      const response = await axios.post('http://full-stack-virid.vercel.app//upload', formData, {
+      const response = await axios.post('https://full-stack-virid.vercel.app//upload', formData, {
         headers: {
           'Content-Type': 'multipart/form-data'
         }

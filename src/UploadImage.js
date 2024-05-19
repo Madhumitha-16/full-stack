@@ -2,24 +2,25 @@ import React, { useState } from 'react';
 import axios from 'axios';
 
 const UploadImage = () => {
-  const [file, setFile] = useState(null);
+  const [selectedFile, setSelectedFile] = useState(null);
 
-  const handleFileChange = (e) => {
-    setFile(e.target.files[0]);
+  const handleFileChange = (event) => {
+    setSelectedFile(event.target.files[0]);
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+
     const formData = new FormData();
-    formData.append('image', file);
+    formData.append('image', selectedFile);
 
     try {
-      const response = await axios.post('https://https://full-stack-virid.vercel.app/upload', formData, {
+      const response = await axios.post('http://localhost:3307/upload', formData, {
         headers: {
           'Content-Type': 'multipart/form-data'
         }
       });
-      console.log(response.data);
+      console.log('File uploaded successfully:', response.data);
     } catch (error) {
       console.error('Error uploading file:', error);
     }

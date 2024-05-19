@@ -11,7 +11,7 @@ const DisplayImage = () => {
 
   const handleFetchImage = async () => {
     try {
-      const response = await axios.get(`https://localhost:3307/image/${imageId}`, {
+      const response = await axios.get(`http://localhost:3307/image/${imageId}`, {
         responseType: 'arraybuffer'
       });
       const base64 = btoa(

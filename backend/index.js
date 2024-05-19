@@ -23,7 +23,7 @@ router.get('/', function(req, res, next) {
     res.send('index', { title: 'Express' });
 });
 
-router.get('/full-stack-virid.vercel.app/buys', function(req, res, next) {
+router.get('/buys', function(req, res, next) {
     let sql = `SELECT * FROM buyers`;
     connection.query(sql, function(err, result) {
         if (err) {
@@ -35,6 +35,7 @@ router.get('/full-stack-virid.vercel.app/buys', function(req, res, next) {
 
 app.use('/', router);
 
-app.listen(3307, () => {
-    console.log("server running on port 3307");
+const PORT = process.env.PORT || 3307;
+app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
 });

@@ -18,7 +18,7 @@ const connection = mysql.createConnection({
     else console.log("database connection successfull!!!!");
 });
 
-router.get('/buyers', function(req, res, next) {
+router.get('/full-stack-virid.vercel.app/buyers', function(req, res, next) {
   let sql = `select * from buyers `;
   connection.query(sql,function(err, result) {
     if (err) throw err;

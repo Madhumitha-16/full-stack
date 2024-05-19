@@ -1,16 +1,17 @@
 const express = require('express');
 const mysql = require('mysql2');
+require('dotenv').config();
 
 const app = express();
 const router = express.Router();
 
 const connection = mysql.createConnection({
-    host: "srv598.hstgr.io", 
-    user: "u856398307_test",      
-    password: "Madhu@db16",     
-    database: "u856398307_test_fs"
+    host: process.env.DB_HOST, 
+    user: process.env.DB_USER,      
+    password: process.env.DB_PASSWORD,     
+    database: process.env.DB_NAME
 });
-
+console.log(process.env.DB_HOST)
 connection.connect(function (err) {
     if (err) {
         console.log("database connection failed", err);

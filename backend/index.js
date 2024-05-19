@@ -1,29 +1,40 @@
-const express= require('express');
-const app=express();
-const router = express.Router();
+const express = require('express');
 const mysql = require('mysql2');
 
-app.use('/',(req,res)=>{
-    res.send("from server")
-})
+const app = express();
+const router = express.Router();
+
 const connection = mysql.createConnection({
-    host: process.env.MYSQL_URL, 
-    user: process.env.MYSQL_USERNAME,      
-    password: process.env.MYSQL_PASSWORD,     
-    database: process.env.MYSQL_DATABASE
-  }); 
-
-  connection.connect(function (err) {
-    if (err) console.log("database connection failed",err);
-    else console.log("database connection successfull!!!!");
+    host: "srv598.hstgr.io", 
+    user: "u856398307_test",      
+    password: "Madhu@db16",     
+    database: "u856398307_test_fs"
 });
 
-router.get('/full-stack-virid.vercel.app/buyers', function(req, res, next) {
-  let sql = `select * from buyers `;
-  connection.query(sql,function(err, result) {
-    if (err) throw err;
-    res.send(result);
-  });
+connection.connect(function (err) {
+    if (err) {
+        console.log("database connection failed", err);
+    } else {
+        console.log("database connection successful!!!!");
+    }
 });
 
-app.listen(3000,console.log("server running on port 3000"))
+router.get('/', function(req, res, next) {
+    res.send('index', { title: 'Express' });
+});
+
+router.get('/buys', function(req, res, next) {
+    let sql = `SELECT * FROM buyers`;
+    connection.query(sql, function(err, result) {
+        if (err) {
+            return res.status(500).send("Database query failed");
+        }
+        res.json(result);
+    });
+});
+
+app.use('/', router);
+
+app.listen(3307, () => {
+    console.log("server running on port 3307");
+});

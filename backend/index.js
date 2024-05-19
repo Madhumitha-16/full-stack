@@ -1,34 +1,32 @@
 const express = require('express');
 const mysql = require('mysql2');
-require('dotenv').config();  // Load .env file contents into process.env
 
 const app = express();
 const router = express.Router();
 
 const connection = mysql.createConnection({
-    host: process.env.DB_HOST, 
-    user: process.env.DB_USER,      
-    password: process.env.DB_PASSWORD,     
-    database: process.env.DB_NAME
+    host: "srv598.hstgr.io", 
+    user: "u856398307_test",      
+    password: "Madhu@db16",     
+    database: "u856398307_test_fs"
 });
 
 connection.connect(function (err) {
     if (err) {
-        console.error("Database connection failed:", err);
-        return;
-    } 
-    console.log("Database connection successful!");
+        console.log("database connection failed", err);
+    } else {
+        console.log("database connection successful!!!!");
+    }
 });
 
 router.get('/', function(req, res, next) {
-    res.send('index', { title: 'Express' });
+    res.send('hi');
 });
 
 router.get('/buys', function(req, res, next) {
     let sql = `SELECT * FROM buyers`;
     connection.query(sql, function(err, result) {
         if (err) {
-            console.error("Database query failed:", err);
             return res.status(500).send("Database query failed");
         }
         res.json(result);

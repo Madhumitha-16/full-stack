@@ -23,7 +23,7 @@ router.get('/', function(req, res, next) {
     res.send('index', { title: 'Express' });
 });
 
-router.get('/buys', function(req, res, next) {
+router.get('/full-stack-virid.vercel.app/buys', function(req, res, next) {
     let sql = `SELECT * FROM buyers`;
     connection.query(sql, function(err, result) {
         if (err) {

@@ -1,14 +1,21 @@
 import React from 'react';
-import UploadImage from './UploadImage';
-import DisplayImage from './DisplayImage';
+import { BrowserRouter as Router, Route, Routes,Navigate } from 'react-router-dom';
+
+import { UserProvider } from './UserContext';
+import Home from './home/Home';
+import Register from './Register';
 
 function App() {
     return (
-        <div>
-            <h1>Upload and Display Image</h1>
-            <UploadImage />
-            <DisplayImage /> 
-        </div>
+        <UserProvider>
+        <Router>
+          <Routes>
+            <Route path="/home" element={<Home />} />
+            <Route path="/register" element={<Register />} />
+            <Route path="/" element={<Navigate to="/register" />} />
+          </Routes>
+        </Router>
+      </UserProvider>
     );
 }
 

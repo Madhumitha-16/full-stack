@@ -1,0 +1,83 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Merienda:wght@300..900&display=swap');
+.header{
+    width: 100vw;
+    height: 80vh;
+}
+.typewrite{
+    font-family: "Merienda", cursive;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+  }
+  .mainarea {
+    background-color: rgb(29, 62, 92);
+    width: 100%;
+    display: flex;
+    justify-content: center; /* Center horizontally */
+
+    height: 100vh; /* Full height of the viewport */
+    margin: 0 auto; /* Center horizontally within the page */
+  }
+  
+  .button{
+    background-color: #fa8948;
+    color: aliceblue;
+    text-align: left;
+    width: 70%;
+    margin-top: 5%;
+  }
+  .button-align{
+    background-color: #d65e19;
+    color: aliceblue;
+    text-align: center;
+    width: 100%;
+    margin-top: 5%;
+    border: none;
+  }
+  .button-align:hover{
+    background-color: #d65e19!important;
+    color: aliceblue !important;
+    text-align: center;
+    font-size: large;
+    width: 100%;
+    margin-top: 5%;
+    border: none !important;
+  }
+  .button:hover{
+    background-color: #f37b36  !important; 
+    color: aliceblue  !important;
+    font-size: large;
+    text-align: left;
+    width: 70%;
+    margin-top: 5%;
+    border: none !important;
+  }
+  .count{
+    background-color: #D8D9DB;
+  }
+
+@media (min-width: 768px) { 
+    .header img {
+        width: 100px; 
+    }
+}
+
+@media (min-width: 992px) { 
+    .header img {
+        width: 100px; 
+    }
+}
+
+@media (min-width: 1200px) { 
+    .header img {
+        width: 900px; 
+    }
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  

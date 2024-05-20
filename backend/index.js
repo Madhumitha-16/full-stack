@@ -5,7 +5,7 @@ require('dotenv').config();
 const cors = require('cors');
 const storage = multer.memoryStorage();
 const upload = multer({ storage: storage });
-
+const bodyParser = require('body-parser');
 const app = express();
 app.use(cors()); // Enable CORS
 
@@ -21,6 +21,8 @@ const pool = mysql.createPool({
 });
 
 console.log(process.env.DB_HOST);
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 app.get('/', function (req, res, next) {
     res.send('hi');
@@ -35,6 +37,64 @@ app.get('/buys', function (req, res, next) {
         res.json(result);
     });
 });
+
+app.post('/register', function (req, res) {
+    let title=req.query.title;
+    let content=req.query.content;
+    let sql = `INSERT INTO users (title, content) VALUES (?,?)`;
+   pool.query(sql,[title,content], function(err, result) {
+      if (err) throw err;
+      res.send("You got it Madhu!!!");
+    });
+  });
+
+  
+  app.post('/add-post', function (req, res) {
+    const { title, description, type, price, home_type, bed_count, room_count, street, area, city, state, amenities } = req.body;
+  
+    const sql = `INSERT INTO ads (title, description, type_of_rent, price, type, bed_count, room_count, street, area, city, state, amenities) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
+  
+    const values = [title, description, type, price, home_type, bed_count, room_count, street, area, city, state, amenities.join(',')];
+  console.log(values)
+    pool.query(sql, values, function (err, result) {
+      if (err) {
+        console.error('Error inserting data into database:', err);
+        res.status(500).send('Error inserting data into database');
+        return;
+      }
+      res.send("You got it Madhu!!!");
+    });
+  });
+
+  app.post('/signin', (req, res) => {
+    const { email, password } = req.body;
+    const query = 'SELECT * FROM users WHERE email = ? AND password = ?';
+  
+    pool.query(query, [email, password], (error, results) => {
+      if (error) {
+        return res.status(500).json({ error: 'Database query error' });
+      }
+      if (results.length > 0) {
+        
+        res.status(200).json({ message: 'Sign-in successful', user: results[0] });
+      } else {
+        res.status(401).json({ message: 'Invalid email or password' });
+      }
+    });
+  });
+  app.post('/signup', (req, res) => {
+    const { firstName, lastName, email, password, phoneNumber,type } = req.body;
+  
+    const query = 'INSERT INTO users (first_name, last_name, email, password, phone_no,role) VALUES (?, ?, ?, ?, ?,?)';
+    
+    pool.query(query, [firstName, lastName, email, password, phoneNumber, type], (error, results) => {
+      if (error) {
+        return res.status(500).json({ error: 'Database query error' });
+      }
+      res.status(201).json({ message: 'Sign-up successful', userId: results.insertId,role:type });
+    });
+});
+
 
 app.post('/upload', upload.single('image'), (req, res) => {
     const image = req.file.buffer;

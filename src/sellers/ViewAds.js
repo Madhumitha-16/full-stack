@@ -24,7 +24,7 @@ const ViewAds = () => {
 
   const fetchData = async() => {
     try {
-      const response = await axios.get(`http://localhost:3307/ad/${user?.user?.id}`);
+      const response = await axios.get(`https://full-stack-virid.vercel.app/ad/${user?.user?.id}`);
       const adsWithImages = response.data.map(ad => {
         if (ad.image) {
           const base64Image = btoa(

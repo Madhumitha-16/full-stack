@@ -44,7 +44,7 @@ const Register = () => {
     e.preventDefault();
     if (authMode === "signin") {
 
-      axios.post('http://localhost:3307/signin', formValues)
+      axios.post('https://full-stack-virid.vercel.app/signin', formValues)
         .then(response => {
           console.log('Sign-in successful', response.data);
           
@@ -56,7 +56,7 @@ const Register = () => {
           console.error('Error during sign-in', error);
         });
     } else {
-      axios.post('http://localhost:3307/signup', formValues)
+      axios.post('https://full-stack-virid.vercel.app/signup', formValues)
         .then(response => {
           console.log('Sign-up successful', response.data);
           setAuthMode("signin")

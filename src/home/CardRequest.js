@@ -11,9 +11,9 @@ const CardAds = ({ data }) => {
   return (
    <>    <Card
    style={{
-     width: 360,
-     height: 340,
-    
+     width: 350,
+     height: 360,
+
    }}
    
    cover={
@@ -24,10 +24,10 @@ const CardAds = ({ data }) => {
        style={{ width: '100%', height: '200px', objectFit: 'cover' }}
      />
    }
-   actions={[
-      <EyeOutlined />,
+  //  actions={[
+  //     <EyeOutlined />,
      
-    ]}
+  //   ]}
    
   
  >
@@ -38,6 +38,7 @@ const CardAds = ({ data }) => {
    /> 
 
    <div className='row mt-3'>
+   <h5 className='col-md-12 color'>Buyer Details</h5>
    <h6 className='col-md-6 '><IdcardOutlined />{"  "}{data.first_name}</h6>
    <h6 className='col-md-6 '><PhoneOutlined />{"  "}{data.phone_no}</h6>
    <h6 className='col-md-12 '><MailOutlined />{"  "}{data.email}</h6>

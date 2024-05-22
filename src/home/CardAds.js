@@ -50,7 +50,7 @@ const CardAds = ({ data }) => {
   return (
    <>    <Card
    style={{
-     width: 300,
+     width: 350,
    }}
    
    cover={

@@ -118,7 +118,7 @@ const ViewAd = () => {
         <div className='row mb-5 '>
     <div><h3 className='ml-3 mb-3'>Similar Ads of the Owner</h3></div>
     {similarData.map((d) => (
-        <div className='col-md-3 ml-3 mb-5'>
+        <div className='col-md-3 ml-6 mb-5'>
     <CardAds key={d.id} data={d} />
     </div>
 ))}

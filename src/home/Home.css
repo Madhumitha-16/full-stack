@@ -53,8 +53,9 @@ border-radius: 10px;
     background-color: #fa8948;
     color: aliceblue;
     text-align: left;
-    width: 70%;
-    margin-top: 5%;
+    font-size: 16px;
+    width: 30%;
+    margin-top: 5% ;
   }
   .button-align{
     background-color: #d65e19;
@@ -63,6 +64,9 @@ border-radius: 10px;
     width: 100%;
     margin-top: 5%;
     border: none;
+  }
+  .color{
+    color:#d65e19;
   }
   .button-align:hover{
     background-color: #d65e19!important;
@@ -78,7 +82,7 @@ border-radius: 10px;
     color: aliceblue  !important;
     font-size: large;
     text-align: left;
-    width: 70%;
+    width: 30%;
     margin-top: 5%;
     border: none !important;
   }
@@ -104,7 +108,16 @@ border-radius: 10px;
     background:linear-gradient(0deg, rgba(36, 32, 28, 0.863), rgba(255, 108, 23, 0.712)), url('../images/main-pg.jpeg');
     background-size:cover;
   }
+  .box-4{
 
+    border-radius: 10px;
+    margin-right: 10px;
+    color: #ffffff;
+    padding: 50px;
+    min-height:100%;
+    background:linear-gradient(0deg, rgba(36, 32, 28, 0.863), rgba(255, 108, 23, 0.712)), url('../images/villa.jpg');
+    background-size:cover;
+  }
 
 @media (min-width: 768px) { 
     .header img {
@@ -147,7 +160,9 @@ color:#fff;
 }
 .button-post{
   width: 150px;
-  color: #060C14;
+  color: #ffffff;
+  background-color: #f37b36;
+  border: none;
 }
 .content-post{
   display: flex;

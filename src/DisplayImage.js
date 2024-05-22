@@ -11,7 +11,7 @@ const DisplayImage = () => {
 
   const handleFetchImage = async () => {
     try {
-      const response = await axios.get(`https://full-stack-virid.vercel.app/image/${imageId}`, {
+      const response = await axios.get(`http://localhost:3307/image/${imageId}`, {
         responseType: 'arraybuffer'
       });
       const base64 = btoa(
@@ -23,7 +23,7 @@ const DisplayImage = () => {
     }
   };
   
-
+console.log(imageSrc)
   return (
     <div>
       <input type="text" value={imageId} onChange={handleIdChange} placeholder="Enter image ID" />

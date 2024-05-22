@@ -24,18 +24,18 @@
   padding-bottom: 20px;
   margin-left: 28%;
   border-radius: 8px;
-  background-color: #060C14;
+  background-color: #0B1522;
   color: white;
 }
 
 .Post-form {
-  width: 800px;
+  width: 580px;
   box-shadow: rgb(0 0 0 / 16%) 1px 1px 10px;
-  padding-top: 30px;
+  padding-top: 15px;
   padding-bottom: 20px;
-  margin-left: 20%;
+  margin-top: 25%;
   border-radius: 8px;
-  background-color: #060C14;
+  background-color: #0b1522;
   color: white;
 }
 
@@ -46,7 +46,6 @@
 
 .Auth-form-title {
   text-align: center;
-  margin-bottom: 1em;
   font-size: 24px;
   color: white;
   font-weight: 800;
@@ -62,3 +61,16 @@ label {
   margin: 1% 2% !important;
   align-items: center;
 }
+.primary{
+  background-color: #a50153 !important;
+  padding: 2% 2% !important;
+  border-radius: 10px !important;
+  color: #fff !important;
+}
+.primary:hover{
+  background-color: #a50153 !important;
+  padding: 2% 2% !important;
+  border-radius: 10px !important;
+  color: #fff !important;
+}
+

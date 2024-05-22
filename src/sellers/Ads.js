@@ -1,64 +1,97 @@
-import { Button } from 'antd';
 import axios from 'axios';
-import React, { useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
+import { UserContext } from '../UserContext';
+import NavbarSeller from './NavbarSeller';
+import Footer from '../Footer';
 
 const Ads = () => {
-  const [formValues, setFormValues] = useState({
-    title: '',
-    description: '',
-    street: '',
-    city: '',
-    area: '',
-    state: '',
-    price: '',
-    bed_count: '',
-    room_count: '',
-    home_type: 'Apartment', // default value
-    type: 'rent', // default value
-    amenities: [],
-  });
-console.log(formValues)
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setFormValues({ ...formValues, [name]: value });
-  };
+  const [selectedFile, setSelectedFile] = useState(null);
 
-  const handleCheckboxChange = (e) => {
-    const { name, checked } = e.target;
-    if (checked) {
-      setFormValues((prevState) => ({
-        ...prevState,
-        amenities: [...prevState.amenities, name],
-      }));
-    } else {
-      setFormValues((prevState) => ({
-        ...prevState,
-        amenities: prevState.amenities.filter((amenity) => amenity !== name),
-      }));
+    const { user } = useContext(UserContext);
+    console.log(user)
+    const [formValues, setFormValues] = useState({
+      user_id: '', 
+      title: '',
+      description: '',
+      street: '',
+      city: '',
+      area: '',
+      state: '',
+      price: '',
+      bed_count: '',
+      room_count: '',
+      home_type: 'Apartment', 
+      type: 'rent',
+      amenities: [],
+    });
+  
+console.log(formValues,user)
+const handleFileChange = (e) => {
+  setSelectedFile(e.target.files[0]);
+};
+
+    useEffect(() => {
+      if (user && user?.user?.id) {
+        setFormValues(prevValues => ({ ...prevValues, user_id: user?.user?.id }));
+      }
+    }, [user]);
+  
+    const handleInputChange = (e) => {
+      const { name, value } = e.target;
+      setFormValues({ ...formValues, [name]: value });
+    };
+  
+    const handleCheckboxChange = (e) => {
+      const { name, checked } = e.target;
+      if (checked) {
+        setFormValues((prevState) => ({
+          ...prevState,
+          amenities: [...prevState.amenities, name],
+        }));
+      } else {
+        setFormValues((prevState) => ({
+          ...prevState,
+          amenities: prevState.amenities.filter((amenity) => amenity !== name),
+        }));
+      }
+    };
+  
+    
+  const handleSave = async (e) => {
+    e.preventDefault();
+
+    const formData = new FormData();
+    formData.append('image', selectedFile);
+
+    for (let key in formValues) {
+      if (Array.isArray(formValues[key])) {
+        formData.append(key, JSON.stringify(formValues[key]));
+      } else {
+        formData.append(key, formValues[key]);
+      }
+    }
+
+    try {
+      const response = await axios.post('http://localhost:3307/add-post', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      });
+
+      console.log('Note created:', response.data);
+    } catch (error) {
+      console.error('Error creating note:', error);
     }
   };
-
-  const handleSave = (e) => {
-    e.preventDefault();
-    axios({
-      method: 'POST',
-      url: 'http://localhost:3307/add-post',
-      data: formValues,
-    })
-      .then((res) => {
-        console.log('Note created');
-      })
-      .catch((err) => {
-        console.error(err);
-      });
-  };
-
   return (
     <>
-      <form className="Post-form" onSubmit={handleSave}>
+    <NavbarSeller />
+    <div className='header2-img content-post '>
+    <h2>Having a new home for rent?</h2>
+      <form className="Post-form " onSubmit={handleSave}>
         <div className="Auth-form-content">
           <h3 className="Auth-form-title">Post New AD</h3>
-          <div className="form-group mt-3">
+          <div className="form-group ">
             <label>Title</label>
             <input
               type="text"
@@ -88,18 +121,18 @@ console.log(formValues)
               <input
                 type="radio"
                 className="input-radio"
-                value="rent"
+                value="Rent"
                 name="type"
-                checked={formValues.type === 'rent'}
+                checked={formValues.type === 'Rent'}
                 onChange={handleInputChange}
                 required
               /> Rent
               <input
                 type="radio"
                 className="input-radio"
-                value="lease"
+                value="Lease"
                 name="type"
-                checked={formValues.type === 'lease'}
+                checked={formValues.type === 'Lease'}
                 onChange={handleInputChange}
                 required
               /> Lease
@@ -269,18 +302,18 @@ console.log(formValues)
           </div>
           <div className="form-group mt-3 row">
             <label>Upload Images</label>
-            <input type="file" className="mt-1 col-md-6" />
-            <button type="submit" className="col-md-3">
-              Upload
-            </button>
+            <input type="file" onChange={handleFileChange}  className="mt-1 col-md-6" />
           </div>
-          <div className="d-grid gap-2 mt-3">
+          <div className="d-grid gap-2 mt-3 mb-3">
             <button type="submit" className="btn btn-primary">
               Submit
             </button>
           </div>
+          
         </div>
+        
       </form>
+      </div> 
     </>
   );
 };

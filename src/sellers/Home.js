@@ -3,11 +3,13 @@ import NavbarSeller from './NavbarSeller'
 import { Button } from 'antd'
 import {RightOutlined} from '@ant-design/icons';
 import home from '../images/home.png'
+import Footer from '../Footer';
 
-const HomeSeller = () => {
+const HomeSeller = ({user_id}) => {
+    console.log(user_id)
   return (
     <>
-        <NavbarSeller />
+        <NavbarSeller user_id={user_id}/>
         <div class="header container m-5">
         <div class="row justify-content-start">
             <div class="content col-lg-5 col-md-6 col-12">
@@ -23,6 +25,7 @@ const HomeSeller = () => {
             </div>
         </div>
     </div>
+    <Footer />
     </>
   )
 }

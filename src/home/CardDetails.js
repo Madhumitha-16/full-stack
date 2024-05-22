@@ -1,31 +1,109 @@
-import React from 'react'
-import { LikeOutlined } from '@ant-design/icons';
+import React, { useContext, useEffect, useState } from 'react'
+import { LikeOutlined,LikeFilled,EyeOutlined } from '@ant-design/icons';
 import { Avatar, Button, Card } from 'antd';
+import axios from 'axios';
+import { UserContext } from '../UserContext';
+import noImg from '../images/no_img.png'
+import { useNavigate } from 'react-router-dom';
+import { encrypt } from '../cryptoUtils';
+
 const { Meta } = Card;
 
-const CardDetails = ({ title, description }) => {
+const CardDetails = ({data }) => {
+  const navigate = useNavigate();
+  const { user} = useContext(UserContext);
+let userId = user?.user?.id;
+
+
+const handleNavigation = () => {
+  navigate(`/ad/${encodeURIComponent(encrypt(data.user_id))}/${encodeURIComponent( encrypt(data.id) ) }`);
+};
+
+  const [liked, setLiked] = useState(false);
+  const [interested, setInterested] = useState(false);
+  useEffect(() => {
+    axios.get(`/api/like-status`, { params: { userId, adId: data.id } })
+      .then(response => {
+        setLiked(response?.data?.liked);
+      })
+      .catch(error => {
+        console.error('Error fetching like status:', error);
+      });
+  }, [data.id, userId]);
+
+  const handleLike = () => {
+    setLiked(!liked);
+    if(liked===true) {
+    axios.post('http://localhost:3307/api/like', { userId, adId: data?.id, liked: !liked })
+      .then(response => {
+        console.log('Like status updated:', response.data);
+      })
+      .catch(error => {
+        console.error('Error updating like status:', error);
+      });}
+    if(liked===false){
+      axios.delete(`http://localhost:3307/api/like/${data?.id}`, { userId, adId: data?.id, liked: !liked })
+      .then(response => {
+        console.log('Ad deleted successfully:', response.data);
+      })
+      .catch(error => {
+        console.error('Error deleting ad:', error);
+      });
+    }
+  };
+
+  const handleInterest = () => {
+    setInterested(!interested);
+    if(interested ===true) {
+    axios.post('http://localhost:3307/api/interest', { userId, adId: data?.id, liked: !liked })
+      .then(response => {
+        console.log('status updated:', response.data);
+      })
+      .catch(error => {
+        console.error('Error updating like status:', error);
+      });}
+    if(interested===false){
+      axios.delete(`http://localhost:3307/api/interest/${data?.id}`, { userId, adId: data?.id, liked: !liked })
+      .then(response => {
+        console.log('Ad deleted successfully:', response.data);
+      })
+      .catch(error => {
+        console.error('Error deleting ad:', error);
+      });
+    }
+  };
+
   return (
     <Card
+    
     style={{
-      width: 300,
+      width: 320,
     }}
     cover={
       <img
-        alt="example"
-        src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"
-      />
+       alt="example"
+       src={data.imageSrc ? data.imageSrc:noImg}
+       style={{ width: '100%', height: '200px', objectFit: 'cover' }}
+     />
     }
     actions={[
-        <LikeOutlined key="like"/>,
-        <Button className='button' key="interested" type="link">I'm Interested</Button>
-
+      liked ? <LikeFilled key="like" onClick={handleLike} style={{ color: 'orange' }} /> : <LikeOutlined key="like" onClick={handleLike} />,
+      <Button style={{border:"none",backgroundColor:"#d65e19",color:"#fff"}} key="interested" onClick={handleInterest } >Send Request</Button>,
+        <Button style={{border:"none"}} key="interested" onClick={handleNavigation } >Interested</Button>
     ]}
    
   >
     <Meta
-      title={title}
-      description={description}
+     title={data.title+" for "+data.type_of_rent}
+      description={data?.description}
     />
+    <div className='row mt-3'>
+   <p className='col-md-6 '>Price: ₹ {data.price}</p>
+   <p className='col-md-6'>Type: {data.type}</p>
+   <p className='col-md-6'>Area: {data.area}</p>
+   <p className='col-md-6'>Rooms: {data.room_count}</p>
+
+   </div>
   </Card>
   )
 }

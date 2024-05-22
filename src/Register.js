@@ -43,21 +43,24 @@ const Register = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (authMode === "signin") {
-      // Handle sign-in logic here
+
       axios.post('http://localhost:3307/signin', formValues)
         .then(response => {
           console.log('Sign-in successful', response.data);
-          setUserId(response.data.user.id)
-          setUser(response.data.user)
+          
+         
+          setUserId(response.data?.user?.id)
+          setUser(response.data)
         })
         .catch(error => {
           console.error('Error during sign-in', error);
         });
     } else {
-      // Handle sign-up logic here
       axios.post('http://localhost:3307/signup', formValues)
         .then(response => {
           console.log('Sign-up successful', response.data);
+          setAuthMode("signin")
+          navigate('/register')
         })
         .catch(error => {
           console.error('Error during sign-up', error);

@@ -266,9 +266,9 @@ app.get('/request/:id', function (req, res, next) {
             const { user_id, title, description, type, price, home_type, bed_count, room_count, street, area, city, state, amenities } = req.body;
             const image = req.file ? req.file.buffer : null;
           
-            if (!image) {
-              return res.status(400).send('Image is required');
-            }
+            // if (!image) {
+            //   return res.status(400).send('Image is required');
+            // }
           
             const sqlInsertAd = `INSERT INTO ads (user_id, title, description, type_of_rent, price, type, bed_count, room_count, street, area, city, state, amenities, image) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
           

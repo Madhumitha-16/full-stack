@@ -88,8 +88,8 @@ const handleNavigation = () => {
     }
     actions={[
       liked ? <LikeFilled key="like" onClick={handleLike} style={{ color: 'orange' }} /> : <LikeOutlined key="like" onClick={handleLike} />,
-      <Button style={{border:"none",backgroundColor:"#d65e19",color:"#fff"}} key="interested" onClick={handleInterest } >Send Request</Button>,
-        <Button style={{border:"none"}} key="interested" onClick={handleNavigation } >Interested</Button>
+      <Button disabled={!userId} style={{border:"none",backgroundColor:"#d65e19",color:"#fff"}} key="interested" onClick={handleInterest } >Send Request</Button>,
+        <Button style={{border:"none"}} disabled={!userId} key="interested" onClick={handleNavigation } >Interested</Button>
     ]}
    
   >

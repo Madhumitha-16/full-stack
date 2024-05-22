@@ -12,7 +12,7 @@ const Home = () => {
   console.log(user)
  
   if (!user) {
-    return <div>Loading...</div>;
+    return <div><HomeBuyer /></div>;
   }
 
   return (

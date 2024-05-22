@@ -6,11 +6,11 @@ import home from '../images/home.png'
 import '../home/Home.css';
 import {useTypewriter} from 'react-simple-typewriter';
 import NavbarBuyer from './NavbarBuyer';
+import NavbarHome from './NavbarHome';
 import { Button } from 'antd';
 import {RightOutlined} from '@ant-design/icons';
 import Filter from './Filter';
 import CardSlider from './CardSlider';
-import {getAllAds} from '../buyers/Filter'
 import { UserContext } from '../UserContext';
 import Footer from '../Footer';
 
@@ -24,13 +24,11 @@ const HomeBuyer = () => {
         typeSpeed: 50,
         deleteSpeed: 40
     })
-
-      
-    
-
   return (
     <>
-   <NavbarBuyer />
+    {user?.user.role===1 ?
+   <NavbarBuyer /> : <NavbarHome />
+    }
    
         <div class="header container m-5">
         <div class="row justify-content-start">
@@ -47,7 +45,7 @@ const HomeBuyer = () => {
             </div>
         </div>
     </div>
-    <Filter user={user}/>
+    <Filter />
     <div className='count '>
     <div class="container mt-3 mb-5 ">
     <div class="row">
